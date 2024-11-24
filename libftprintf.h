@@ -23,5 +23,6 @@ int	ft_putnbr(int n);
 int ft_printf(const char *str, ...);
 int	ft_putnbr_base(unsigned int nbr, char *base);
 size_t	ft_numsizet(size_t n);
+int ft_address(void *str);
 
 #endif

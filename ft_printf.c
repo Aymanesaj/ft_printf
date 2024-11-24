@@ -6,7 +6,7 @@
 /*   By: asajed <asajed@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 23:57:30 by asajed            #+#    #+#             */
-/*   Updated: 2024/11/24 01:13:23 by asajed           ###   ########.fr       */
+/*   Updated: 2024/11/24 02:02:21 by asajed           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,13 @@ int check_argprint(char c, va_list lst)
         return (ft_putstr(va_arg(lst, char *)));
     if (c == '%')
         return (ft_putchar('%'));
+    if (c == 'p')
+        return (ft_address(va_arg(lst, void *)));
     if (c == 'x')
         return (ft_putnbr_base(va_arg(lst, unsigned int), "0123456789abcdef"));
     if (c == 'X')
         return (ft_putnbr_base(va_arg(lst, unsigned int), "0123456789ABCDEF"));
-    return (0);
+    return (-1);
 }
 
 int ft_printf(const char *str, ...)
@@ -50,7 +52,7 @@ int ft_printf(const char *str, ...)
             if (str[i] == '\0')
                 return (-1);
             j = check_argprint(str[i], lst);
-            if ((j <= 0))
+            if ((j < 0))
                 return (-1);
             else
                 result = result + j;
