@@ -1,0 +1,20 @@
+Errors found:
+For p format:
+Error in test 2: ft_printf("%p", NULL): returned: 5, but expected: 3
+Error in test 2: ft_printf("%p", NULL): different memory
+expected:
+0000: 3078 3000 1111                          ->  0x0...
+yours:
+0000: 286e 696c 2900                          ->  (nil).
+
+Error in test 5: ft_printf("%pp%p%p", (void *)LONG_MAX + 423856, (void *)0, (void *)INT_MAX): returned: 34, but expected: 32
+Error in test 5: ft_printf("%pp%p%p", (void *)LONG_MAX + 423856, (void *)0, (void *)INT_MAX): different memory
+expected:
+0000: 3078 3830 3030 3030 3030 3030 3036 3737 ->  0x80000000000677
+0010: 6166 7030 7830 3078 3766 6666 6666 6666 ->  afp0x00x7fffffff
+0020: 0011 11                                 ->  ...
+yours:
+0000: 3078 3830 3030 3030 3030 3030 3036 3737 ->  0x80000000000677
+0010: 6166 7028 6e69 6c29 3078 3766 6666 6666 ->  afp(nil)0x7fffff
+0020: 6666 00                                 ->  ff.
+
