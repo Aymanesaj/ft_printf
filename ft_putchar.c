@@ -6,7 +6,7 @@
 /*   By: asajed <asajed@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/23 15:04:04 by asajed            #+#    #+#             */
-/*   Updated: 2024/11/23 21:10:49 by asajed           ###   ########.fr       */
+/*   Updated: 2024/11/24 21:20:48 by asajed           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,5 @@
 
 int	ft_putchar(char c)
 {
-	int result;
-	
-	result = 0;
-	result = write(1, &c, 1);
-	return (result);
+	return (write(1, &c, 1));
 }

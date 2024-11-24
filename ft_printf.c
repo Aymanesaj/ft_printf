@@ -6,61 +6,58 @@
 /*   By: asajed <asajed@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 23:57:30 by asajed            #+#    #+#             */
-/*   Updated: 2024/11/24 02:02:21 by asajed           ###   ########.fr       */
+/*   Updated: 2024/11/24 22:02:59 by asajed           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int check_argprint(char c, va_list lst)
+int	check_argprint(char c, va_list lst, int *result)
 {
-    if (c == 'c')
-        return (ft_putchar((char)va_arg(lst, int)));
-    if (c == 'd' || c == 'i')
-        return (ft_putnbr(va_arg(lst, int)));
-    if (c == 'u')
-        return (ft_numsizet(va_arg(lst, size_t)));
-    if (c == 's')
-        return (ft_putstr(va_arg(lst, char *)));
-    if (c == '%')
-        return (ft_putchar('%'));
-    if (c == 'p')
-        return (ft_address(va_arg(lst, void *)));
-    if (c == 'x')
-        return (ft_putnbr_base(va_arg(lst, unsigned int), "0123456789abcdef"));
-    if (c == 'X')
-        return (ft_putnbr_base(va_arg(lst, unsigned int), "0123456789ABCDEF"));
-    return (-1);
+	if (c == 'c')
+		return ((*result += ft_putchar((char)va_arg(lst, int))));
+	if (c == 'd' || c == 'i')
+		return ((*result += ft_putnbr(va_arg(lst, int))));
+	if (c == 'u')
+		return ((*result += ft_unsign(va_arg(lst, size_t))));
+	if (c == 's')
+		return ((*result += ft_putstr(va_arg(lst, char *))));
+	if (c == '%')
+		return ((*result += ft_putchar('%')));
+	if (c == 'p')
+		return ((*result += ft_address(va_arg(lst, void *))));
+	if (c == 'x')
+		return ((*result += ft_putnbr_base(va_arg(lst, unsigned int)
+					, "0123456789abcdef")));
+	if (c == 'X')
+		return ((*result += ft_putnbr_base(va_arg(lst, unsigned int)
+					, "0123456789ABCDEF")));
+	return (-1);
 }
 
-int ft_printf(const char *str, ...)
+int	ft_printf(const char *str, ...)
 {
-    va_list lst;
-    int     result;
-    int     j;
-    int     i;
+	va_list	lst;
+	int		result;
+	int		j;
+	int		i;
 
-    result = 0;
-    i = 0;
-    j = 0;
-    va_start(lst, str);
-    while(str[i])
-    {
-        if (str[i] == '%')
-        {
-            i++;
-            if (str[i] == '\0')
-                return (-1);
-            j = check_argprint(str[i], lst);
-            if ((j < 0))
-                return (-1);
-            else
-                result = result + j;
-        }
-        else
-            result += ft_putchar(str[i]);
-        i++;
-    }
-    va_end(lst);
-    return (result);
+	result = 0;
+	i = 0;
+	j = 0;
+	va_start(lst, str);
+	while (str[i])
+	{
+		if (str[i] == '%')
+		{
+			i++;
+			if ((str[i] == '\0') || (check_argprint(str[i], lst, &result)) < 0)
+				return (-1);
+		}
+		else
+			result += ft_putchar(str[i]);
+		i++;
+	}
+	va_end(lst);
+	return (result);
 }

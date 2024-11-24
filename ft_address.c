@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_adress.c                                        :+:      :+:    :+:   */
+/*   ft_address.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asajed <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: asajed <asajed@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 02:15:38 by asajed            #+#    #+#             */
-/*   Updated: 2024/11/24 02:15:41 by asajed           ###   ########.fr       */
+/*   Updated: 2024/11/24 22:05:42 by asajed           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-static int	ft_base(uintptr_t nbr, char *base)
+static int	ft_base(unsigned long nbr, char *base)
 {
 	char			c;
 	int				result;
@@ -25,11 +25,13 @@ static int	ft_base(uintptr_t nbr, char *base)
 	return (result);
 }
 
-int ft_address(void *str)
+int	ft_address(void *str)
 {
 	unsigned long	address;
 
+	if (!str)
+		return (write(1, "(nil)", 5));
 	address = (unsigned long)str;
-    write(1, "0x", 2);
-    return (ft_base(address, "0123456789abcdef") + 2);
+	write(1, "0x", 2);
+	return (ft_base(address, "0123456789abcdef") + 2);
 }
