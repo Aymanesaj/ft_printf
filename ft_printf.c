@@ -6,7 +6,7 @@
 /*   By: asajed <asajed@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 23:57:30 by asajed            #+#    #+#             */
-/*   Updated: 2024/11/23 23:24:31 by asajed           ###   ########.fr       */
+/*   Updated: 2024/11/24 01:13:23 by asajed           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,16 @@ int check_argprint(char c, va_list lst)
         return (ft_putchar((char)va_arg(lst, int)));
     if (c == 'd' || c == 'i')
         return (ft_putnbr(va_arg(lst, int)));
+    if (c == 'u')
+        return (ft_numsizet(va_arg(lst, size_t)));
     if (c == 's')
         return (ft_putstr(va_arg(lst, char *)));
     if (c == '%')
         return (ft_putchar('%'));
+    if (c == 'x')
+        return (ft_putnbr_base(va_arg(lst, unsigned int), "0123456789abcdef"));
+    if (c == 'X')
+        return (ft_putnbr_base(va_arg(lst, unsigned int), "0123456789ABCDEF"));
     return (0);
 }
 
