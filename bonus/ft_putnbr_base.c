@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_address.c                                       :+:      :+:    :+:   */
+/*   ft_putnbr_base.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asajed <asajed@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/24 02:15:38 by asajed            #+#    #+#             */
-/*   Updated: 2024/11/25 18:14:56 by asajed           ###   ########.fr       */
+/*   Created: 2024/11/24 00:32:24 by asajed            #+#    #+#             */
+/*   Updated: 2024/11/25 23:08:53 by asajed           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
-static int	ft_base(unsigned long nbr, char *base)
+int	ft_putnbr_base(unsigned int nbr, char *base)
 {
 	char			c;
+	unsigned long	nb;
 	int				result;
 
+	nb = nbr;
 	result = 0;
-	if (nbr >= 16)
-		result += ft_base(nbr / 16, base);
-	c = base[nbr % 16];
+	if (nb >= 16)
+		result += ft_putnbr_base(nb / 16, base);
+	c = base[nb % 16];
 	result += write(1, &c, 1);
 	return (result);
-}
-
-int	ft_address(unsigned long address)
-{
-	if (!address)
-		return (write(1, "(nil)", 5));
-	return (write(1, "0x", 2) + ft_base(address, "0123456789abcdef"));
 }

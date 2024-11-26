@@ -1,33 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_address.c                                       :+:      :+:    :+:   */
+/*   ft_numsizet.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asajed <asajed@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/24 02:15:38 by asajed            #+#    #+#             */
-/*   Updated: 2024/11/25 18:14:56 by asajed           ###   ########.fr       */
+/*   Created: 2024/11/24 02:15:09 by asajed            #+#    #+#             */
+/*   Updated: 2024/11/25 23:08:41 by asajed           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
-static int	ft_base(unsigned long nbr, char *base)
+int	ft_unsign(unsigned int n)
 {
-	char			c;
-	int				result;
+	char	c;
+	int		result;
 
 	result = 0;
-	if (nbr >= 16)
-		result += ft_base(nbr / 16, base);
-	c = base[nbr % 16];
+	if ((n / 10) > 0)
+		result += ft_unsign((n / 10));
+	c = (n % 10) + '0';
 	result += write(1, &c, 1);
 	return (result);
-}
-
-int	ft_address(unsigned long address)
-{
-	if (!address)
-		return (write(1, "(nil)", 5));
-	return (write(1, "0x", 2) + ft_base(address, "0123456789abcdef"));
 }

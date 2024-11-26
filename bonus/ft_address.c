@@ -6,11 +6,11 @@
 /*   By: asajed <asajed@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 02:15:38 by asajed            #+#    #+#             */
-/*   Updated: 2024/11/25 18:14:56 by asajed           ###   ########.fr       */
+/*   Updated: 2024/11/26 18:15:13 by asajed           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 static int	ft_base(unsigned long nbr, char *base)
 {
@@ -25,9 +25,9 @@ static int	ft_base(unsigned long nbr, char *base)
 	return (result);
 }
 
-int	ft_address(unsigned long address)
+int	ft_address(unsigned long address, char *base)
 {
 	if (!address)
 		return (write(1, "(nil)", 5));
-	return (write(1, "0x", 2) + ft_base(address, "0123456789abcdef"));
+	return (write(1, "0x", 2) + ft_base(address, base));
 }
