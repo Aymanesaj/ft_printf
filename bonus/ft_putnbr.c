@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "libftprintf.h"
 
 int	ft_putnbr(int n)
 {
@@ -23,7 +23,7 @@ int	ft_putnbr(int n)
 	if (nb < 0)
 	{
 		nb = -nb;
-		result += write (1, "-", 1);
+		result += write(1, "-", 1);
 	}
 	if ((nb / 10) > 0)
 		result += ft_putnbr((nb / 10));

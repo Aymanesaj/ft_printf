@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   ft_handlestr.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asajed <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: asajed <asajed@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/28 22:23:39 by asajed            #+#    #+#             */
-/*   Updated: 2024/11/28 22:23:41 by asajed           ###   ########.fr       */
+/*   Created: 2024/11/28 02:17:16 by asajed            #+#    #+#             */
+/*   Updated: 2024/11/28 20:59:47 by asajed           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int	ft_isdigit(int c)
+int	ft_handlestr(va_list lst, int len)
 {
-	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
+	char	*str;
+	int		count;
+
+	str = va_arg(lst, char *);
+	count = ft_strlen(str);
+	if (count >= len)
+		return (write(1, str, len));
+	ft_putstr(str);
+	return (count);
 }

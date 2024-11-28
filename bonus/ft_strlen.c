@@ -1,20 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asajed <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: asajed <asajed@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/28 22:23:39 by asajed            #+#    #+#             */
-/*   Updated: 2024/11/28 22:23:41 by asajed           ###   ########.fr       */
+/*   Created: 2024/11/28 21:00:08 by asajed            #+#    #+#             */
+/*   Updated: 2024/11/28 22:25:56 by asajed           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int	ft_isdigit(int c)
+int	ft_strlen(const char *s)
 {
-	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
+	int	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
 }

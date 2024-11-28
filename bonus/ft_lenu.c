@@ -1,20 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   ft_lenu.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asajed <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: asajed <asajed@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/28 22:23:39 by asajed            #+#    #+#             */
-/*   Updated: 2024/11/28 22:23:41 by asajed           ###   ########.fr       */
+/*   Created: 2024/11/28 20:58:49 by asajed            #+#    #+#             */
+/*   Updated: 2024/11/28 22:24:25 by asajed           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int	ft_isdigit(int c)
+int	ft_lenu(unsigned int n)
 {
-	if (c >= '0' && c <= '9')
+	unsigned int	j;
+
+	j = 0;
+	if (n == 0)
 		return (1);
-	return (0);
+	while (n != 0)
+	{
+		n /= 10;
+		j++;
+	}
+	return (j);
 }

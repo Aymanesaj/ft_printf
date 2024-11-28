@@ -1,7 +1,12 @@
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
 NAME = libftprintf.a
-SRC = ft_printf.c ft_putnbr.c ft_putstr.c ft_numsizet.c ft_putchar.c ft_putnbr_base.c ft_address.c ft_bonus_flags.c ft_addnum.c ft_isdigit.c
+SRC = ft_bonus_flags.c     ft_len.c       ft_putstr.c    ft_address.c \
+      ft_check_argprint.c  ft_numsizet.c  ft_putchar.c   ft_spaces.c \
+      ft_addnum.c          ft_givesign.c  ft_padding.c   ft_putnbr_base.c \
+      ft_isdigit.c         ft_printf.c    ft_putnbr.c    ft_atoi.c   ft_handlestr.c \
+	  ft_strlen.c          ft_lenu.c      ft_strx.c
+	  
 OBJ = $(SRC:.c=.o)
 
 all : $(NAME)

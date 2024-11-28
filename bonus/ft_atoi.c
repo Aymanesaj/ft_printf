@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asajed <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: asajed <asajed@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/28 22:23:39 by asajed            #+#    #+#             */
-/*   Updated: 2024/11/28 22:23:41 by asajed           ###   ########.fr       */
+/*   Created: 2024/11/28 00:26:24 by asajed            #+#    #+#             */
+/*   Updated: 2024/11/28 22:22:19 by asajed           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int	ft_isdigit(int c)
+int	ft_atoi(const char *str, int *i)
 {
-	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
+	long	len;
+
+	len = 0;
+	while (ft_isdigit(str[(*i)]))
+	{
+		len = len * 10 + (str[(*i)] - '0');
+		(*i)++;
+	}
+	return (len);
 }
