@@ -1,28 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr_base.c                                   :+:      :+:    :+:   */
+/*   ft_isdigit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asajed <asajed@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/24 00:32:24 by asajed            #+#    #+#             */
-/*   Updated: 2024/11/28 21:29:28 by asajed           ###   ########.fr       */
+/*   Created: 2024/11/28 22:23:39 by asajed            #+#    #+#             */
+/*   Updated: 2024/12/01 14:32:31 by asajed           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int	ft_putnbr_base(unsigned int nbr, char *base)
+int	ft_isdigit(int c)
 {
-	char			c;
-	unsigned long	nb;
-	int				result;
-
-	nb = nbr;
-	result = 0;
-	if (nb >= 16)
-		result += ft_putnbr_base(nb / 16, base);
-	c = base[nb % 16];
-	result += write(1, &c, 1);
-	return (result);
+	if (c >= '0' && c <= '9')
+		return (1);
+	return (0);
 }

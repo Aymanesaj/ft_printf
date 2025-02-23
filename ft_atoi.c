@@ -6,13 +6,13 @@
 /*   By: asajed <asajed@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/28 00:26:24 by asajed            #+#    #+#             */
-/*   Updated: 2024/11/28 22:22:19 by asajed           ###   ########.fr       */
+/*   Updated: 2024/12/01 14:32:07 by asajed           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int	ft_atoi(const char *str, int *i)
+long	ft_atoi(const char *str, int *i)
 {
 	long	len;
 

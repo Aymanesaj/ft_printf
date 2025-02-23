@@ -1,20 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   ft_gothrough.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: asajed <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: asajed <asajed@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/28 22:23:39 by asajed            #+#    #+#             */
-/*   Updated: 2024/11/28 22:23:41 by asajed           ###   ########.fr       */
+/*   Created: 2024/11/30 15:28:41 by asajed            #+#    #+#             */
+/*   Updated: 2024/12/01 14:32:24 by asajed           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int	ft_isdigit(int c)
+int	ft_gothrough(const char *str, int *i, char *c)
 {
-	if (c >= '0' && c <= '9')
-		return (1);
+	while ((str[(*i)] == '.' || str[(*i)] == '0') && str[(*i)])
+	{
+		if (*c == '0' && str[*i] == '-')
+			return (-1);
+		if (*c == '0' && str[*i] == '.')
+			*c = '.';
+		(*i)++;
+	}
 	return (0);
 }

@@ -6,16 +6,16 @@
 /*   By: asajed <asajed@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 02:15:38 by asajed            #+#    #+#             */
-/*   Updated: 2024/11/25 18:14:56 by asajed           ###   ########.fr       */
+/*   Updated: 2024/12/01 14:32:02 by asajed           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-static int	ft_base(unsigned long nbr, char *base)
+static int	ft_base(unsigned long long nbr, char *base)
 {
-	char			c;
-	int				result;
+	char	c;
+	int		result;
 
 	result = 0;
 	if (nbr >= 16)
@@ -25,9 +25,9 @@ static int	ft_base(unsigned long nbr, char *base)
 	return (result);
 }
 
-int	ft_address(unsigned long address)
+int	ft_address(unsigned long long address, char *base)
 {
 	if (!address)
 		return (write(1, "(nil)", 5));
-	return (write(1, "0x", 2) + ft_base(address, "0123456789abcdef"));
+	return (write(1, "0x", 2) + ft_base(address, base));
 }

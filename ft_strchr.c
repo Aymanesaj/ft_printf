@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asajed <asajed@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/22 23:42:15 by asajed            #+#    #+#             */
-/*   Updated: 2024/11/25 23:08:58 by asajed           ###   ########.fr       */
+/*   Created: 2024/11/29 18:12:40 by asajed            #+#    #+#             */
+/*   Updated: 2024/12/01 14:33:33 by asajed           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int	ft_putnbr(int n)
+int	ft_strchr(const char *s, int i, va_list lst)
 {
-	long	nb;
-	char	c;
-	int		result;
+	va_list	ls;
+	int		j;
 
-	nb = n;
-	result = 0;
-	if (nb < 0)
+	va_copy(ls, lst);
+	j = va_arg(ls, int);
+	va_end(ls);
+	if (j < 0)
+		return (0);
+	while (s[i] != '%' && i >= 0)
 	{
-		nb = -nb;
-		result += write(1, "-", 1);
+		if (s[i] == '+' || s[i] == ' ')
+			return (1);
+		i--;
 	}
-	if ((nb / 10) > 0)
-		result += ft_putnbr((nb / 10));
-	c = (nb % 10) + '0';
-	result += write(1, &c, 1);
-	return (result);
+	return (0);
 }

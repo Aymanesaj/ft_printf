@@ -5,40 +5,34 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: asajed <asajed@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/22 23:57:30 by asajed            #+#    #+#             */
-/*   Updated: 2024/11/26 21:12:23 by asajed           ###   ########.fr       */
+/*   Created: 2024/11/25 16:02:12 by asajed            #+#    #+#             */
+/*   Updated: 2024/12/01 14:30:19 by asajed           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int	check_argprint1(char c, va_list lst, int *result)
+int	ft_checkprints(const char *str, int *i, va_list lst)
 {
-	if (c == 'c')
-		return ((*result += ft_putchar((char)va_arg(lst, int))));
-	if (c == 'd' || c == 'i')
-		return ((*result += ft_putnbr(va_arg(lst, int))));
-	if (c == 'u')
-		return ((*result += ft_unsign(va_arg(lst, size_t))));
-	if (c == 's')
-		return ((*result += ft_putstr(va_arg(lst, char *))));
-	if (c == '%')
-		return ((*result += ft_putchar('%')));
-	if (c == 'p')
-		return ((*result += ft_address(va_arg(lst, unsigned long))));
-	if (c == 'x')
-		return ((*result += ft_putnbr_base(va_arg(lst, unsigned int)
-					, "0123456789abcdef")));
-	if (c == 'X')
-		return ((*result += ft_putnbr_base(va_arg(lst, unsigned int)
-					, "0123456789ABCDEF")));
-	return (-1);
+	int	result;
+	int	j;
+
+	result = 0;
+	(*i)++;
+	if (str[*i] == '\0')
+		return (-1);
+	j = check_argprint(str[*i], lst, str, i);
+	if (j < 0)
+		return (-1);
+	result = j;
+	return (result);
 }
 
 int	ft_printf(const char *str, ...)
 {
 	va_list	lst;
 	int		result;
+	int		j;
 	int		i;
 
 	result = 0;
@@ -50,9 +44,10 @@ int	ft_printf(const char *str, ...)
 	{
 		if (str[i] == '%')
 		{
-			i++;
-			if ((str[i] == '\0') || (check_argprint1(str[i], lst, &result)) < 0)
+			j = ft_checkprints(str, &i, lst);
+			if (j < 0)
 				return (-1);
+			result += j;
 		}
 		else
 			result += ft_putchar(str[i]);

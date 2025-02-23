@@ -6,7 +6,7 @@
 /*   By: asajed <asajed@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 22:38:09 by asajed            #+#    #+#             */
-/*   Updated: 2024/11/28 01:22:39 by asajed           ###   ########.fr       */
+/*   Updated: 2024/12/01 14:32:21 by asajed           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int	ft_givesign(const char *str, int *i, va_list lst, char c)
 {
-	int	n;
+	int		n;
+	va_list	ls;
 
 	while ((str[(*i)] == ' ' || str[(*i)] == '+'))
 	{
@@ -22,13 +23,15 @@ int	ft_givesign(const char *str, int *i, va_list lst, char c)
 			c = '+';
 		(*i)++;
 	}
-	if (str[(*i)] == 'd' || str[(*i)] == 'i')
+	if (ft_specifier(str, *i))
 	{
-		n = va_arg(lst, int);
+		va_copy(ls, lst);
+		n = va_arg(ls, int);
+		va_end(ls);
 		if (n < 0)
-			return (ft_putnbr(n));
+			return (check_argprint(str[(*i)], lst, str, i));
 		else
-			return (ft_putchar(c) + ft_putnbr(n));
+			return (ft_putchar(c) + check_argprint(str[(*i)], lst, str, i));
 	}
 	return (check_argprint(str[(*i)], lst, str, i));
 }

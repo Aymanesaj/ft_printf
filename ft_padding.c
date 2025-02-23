@@ -6,7 +6,7 @@
 /*   By: asajed <asajed@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 22:35:41 by asajed            #+#    #+#             */
-/*   Updated: 2024/11/28 23:00:21 by asajed           ###   ########.fr       */
+/*   Updated: 2024/12/01 14:32:47 by asajed           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,17 @@
 
 int	ft_handlex(va_list lst, int len, const char *str, int *i)
 {
-	va_list	sec;
-	int		printed;
-	int		count;
+	va_list			sec;
+	int				printed;
+	int				count;
+	unsigned int	num;
 
 	printed = 0;
 	va_copy(sec, lst);
-	count = ft_strx(va_arg(sec, unsigned int));
+	num = va_arg(sec, unsigned int);
+	count = ft_strx(num);
+	if (num == 0 && len == 0)
+		return (0);
 	while (len > count)
 	{
 		printed += ft_putchar('0');
@@ -38,6 +42,8 @@ int	ft_handle_unsign(va_list lst, int len)
 
 	printed = 0;
 	num = va_arg(lst, unsigned int);
+	if (num == 0 && len == 0)
+		return (0);
 	count = ft_lenu(num);
 	while (len > count)
 	{
@@ -47,15 +53,19 @@ int	ft_handle_unsign(va_list lst, int len)
 	return ((printed + ft_unsign(num)));
 }
 
-int	ft_negative(int *count, int *sign, char c)
+int	ft_negative(int *count, int *sign, char c, int num)
 {
-	if (c == '0')
-		(*count)++;
-	*sign = -1;
-	return (ft_putchar('-'));
+	if (num < 0)
+	{
+		if (c == '0')
+			(*count)++;
+		*sign = -1;
+		return (ft_putchar('-'));
+	}
+	return (0);
 }
 
-int	ft_handlenum(va_list lst, int len, char c, char ch)
+int	ft_handlenum(const char *str, va_list lst, int len, char c)
 {
 	int	num;
 	int	count;
@@ -64,12 +74,12 @@ int	ft_handlenum(va_list lst, int len, char c, char ch)
 
 	sign = 1;
 	printed = 0;
-	if (ch == 'u')
-		return (ft_handle_unsign(lst, len));
 	num = va_arg(lst, int);
 	count = ft_len(num);
-	if (num < 0)
-		printed += ft_negative(&count, &sign, c);
+	count += ft_positive(str, c, num);
+	printed += ft_negative(&count, &sign, c, num);
+	if (num == 0 && len == 0)
+		return (0);
 	while (len > count)
 	{
 		printed += ft_putchar('0');
@@ -83,24 +93,21 @@ int	ft_handlenum(va_list lst, int len, char c, char ch)
 int	ft_padding(const char *str, int *i, va_list lst, char c)
 {
 	int	len;
-	int	pr;
+	int	j;
 
 	len = 0;
-	pr = 0;
-	while ((str[(*i)] == '.' || str[(*i)] == '0') && str[(*i)])
-	{
-		if (c == '0' && str[*i] == '-')
-			return (ft_addnum(str, i, lst));
-		if (c == '0' && str[*i] == '.')
-			c = '.';
-		(*i)++;
-	}
+	j = *i;
+	while (str[j] != '%')
+		j--;
+	if (ft_gothrough(str, i, &c) == -1)
+		return (ft_addnum(str, i, lst));
 	len = ft_atoi(str, i);
-	if (str[(*i)] == 'd' || str[(*i)] == 'i' || str[(*i)] == 'u')
-	{
-		pr = ft_handlenum(lst, len, c, str[(*i)]);
-		return (pr);
-	}
+	if (c == '0')
+		c = ft_checkdot0(str, i, &len, lst);
+	if (str[(*i)] == 'd' || str[(*i)] == 'i')
+		return (ft_handlenum(str + j, lst, len, c));
+	if (str[(*i)] == 'u')
+		return (ft_handle_unsign(lst, len));
 	if (str[(*i)] == 's' && c == '.')
 		return (ft_handlestr(lst, len));
 	if (str[(*i)] == 'x' || str[(*i)] == 'X')

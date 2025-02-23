@@ -6,7 +6,7 @@
 /*   By: asajed <asajed@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/24 00:32:24 by asajed            #+#    #+#             */
-/*   Updated: 2024/11/24 01:00:19 by asajed           ###   ########.fr       */
+/*   Updated: 2024/12/01 14:33:13 by asajed           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int	ft_putnbr_base(unsigned int nbr, char *base)
 
 	nb = nbr;
 	result = 0;
+	if (!nbr)
+		return (ft_putchar('0'));
 	if (nb >= 16)
 		result += ft_putnbr_base(nb / 16, base);
 	c = base[nb % 16];

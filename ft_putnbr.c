@@ -6,7 +6,7 @@
 /*   By: asajed <asajed@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 23:42:15 by asajed            #+#    #+#             */
-/*   Updated: 2024/11/24 22:01:00 by asajed           ###   ########.fr       */
+/*   Updated: 2024/12/01 14:33:17 by asajed           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	ft_putnbr(int n)
 	if (nb < 0)
 	{
 		nb = -nb;
-		result += write (1, "-", 1);
+		result += write(1, "-", 1);
 	}
 	if ((nb / 10) > 0)
 		result += ft_putnbr((nb / 10));

@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_numsizet.c                                      :+:      :+:    :+:   */
+/*   ft_handlestr.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asajed <asajed@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/24 02:15:09 by asajed            #+#    #+#             */
-/*   Updated: 2024/11/25 23:08:41 by asajed           ###   ########.fr       */
+/*   Created: 2024/11/28 02:17:16 by asajed            #+#    #+#             */
+/*   Updated: 2024/12/01 14:32:27 by asajed           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int	ft_unsign(unsigned int n)
+int	ft_handlestr(va_list lst, int len)
 {
-	char	c;
-	int		result;
+	char	*str;
+	int		count;
 
-	result = 0;
-	if ((n / 10) > 0)
-		result += ft_unsign((n / 10));
-	c = (n % 10) + '0';
-	result += write(1, &c, 1);
-	return (result);
+	str = va_arg(lst, char *);
+	if (!str)
+		return (0);
+	count = ft_strlen(str);
+	if (count >= len)
+		return (write(1, str, len));
+	ft_putstr(str);
+	return (count);
 }

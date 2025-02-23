@@ -6,71 +6,72 @@
 /*   By: asajed <asajed@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/25 16:08:54 by asajed            #+#    #+#             */
-/*   Updated: 2024/11/25 22:20:37 by asajed           ###   ########.fr       */
+/*   Updated: 2024/12/01 14:29:56 by asajed           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int	ft_isdigit(int c)
+int	ft_skipflags(const char *str, int i)
 {
-	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
-}
-void    ft_add(int len, char c)
-{
-    while (len > 0)
-    {
-        ft_putchar(c);
-        len--;
-    }
-}
-int ft_num(const char *str, int *i)
-{
-    int len;
-
-    len = 0;
-    while (ft_isdigit(str[*i]))
-    {
-        len = len * 10 + (str[*i] - '0');
-        (*i)++;
-    }
-    return (len);
+	while (str[i] == '#' || str[i] == '0' || str[i] == '.'
+		|| ft_isdigit(str[i]))
+		i++;
+	if (str[i] == 'x' || str[i] == 'X')
+		return (i);
+	return (-1);
 }
 
-int ft_addnum(const char *str, int *i, va_list lst, char c)
+int	ft_hash(const char *str, int *i, va_list lst)
 {
-    int len;
-    int count;
+	unsigned int	l;
 
-    len = 0;
-    while (ft_isdigit(str[*i]))
-    {
-        len = len * 10 + (str[*i] - '0');
-        (*i)++;
-    }
-    count = check_argprint(str[(*i)], lst);
-    if (count < len)
-    {
-        while (count < len)
-            count += ft_putchar(c);
-        return (len);
-    printf("\n[[[[len : %d]]]]\n",len);
-    }
-    return (count);
+	l = va_arg(lst, unsigned long long);
+	while (str[(*i)] == '#')
+		(*i)++;
+	if (!l)
+		return (ft_putchar('0'));
+	if (str[(*i)] == 'x')
+		return ((write(1, "0x", 2) + ft_putnbr_base(l, "0123456789abcdef")));
+	else if (str[(*i)] == 'X')
+		return ((write(1, "0X", 2) + ft_putnbr_base(l, "0123456789ABCDEF")));
+	return (check_argprint(str[(*i)], lst, str, i));
 }
 
-
-int bonus_flags(const char *str, va_list lst, int *i)
+int	ft_hashcomb(const char *str, int *i, va_list lst)
 {
-    int len;
+	unsigned long long	l;
+	va_list				ls;
+	int					j;
 
-    len = 0;
-    if (str[(*i)] == '-')
-    {
-        (*i)++;
-        len = ft_addnum(str, i, lst, ' ');
-    }
-    return (len);
+	va_copy(ls, lst);
+	l = va_arg(ls, unsigned long long);
+	va_end(ls);
+	while (str[(*i)] == '#')
+		(*i)++;
+	j = ft_skipflags(str, *i);
+	if (!l)
+		return (check_argprint(str[(*i)], lst, str, i));
+	if (str[j] == 'x')
+		return ((write(1, "0x", 2) + check_argprint(str[(*i)], lst, str, i)));
+	else if (str[j] == 'X')
+		return ((write(1, "0X", 2) + check_argprint(str[(*i)], lst, str, i)));
+	return (check_argprint(str[(*i)], lst, str, i));
+}
+
+int	bonus_flags(const char *str, va_list lst, int *i)
+{
+	if (str[(*i)] == '-')
+		return (ft_addnum(str, i, lst));
+	else if (str[(*i)] == '+' || str[(*i)] == ' ')
+		return (ft_givesign(str, i, lst, str[(*i)]));
+	else if (str[(*i)] == '#' && (str[(*i) + 1] == 'X' || str[(*i) + 1] == 'x'))
+		return (ft_hash(str, i, lst));
+	else if (str[(*i)] == '#' && (str[(*i) + 1] != 'X' && str[(*i) + 1] != 'x'))
+		return (ft_hashcomb(str, i, lst));
+	else if (str[(*i)] == '.' || str[(*i)] == '0')
+		return (ft_padding(str, i, lst, str[*i]));
+	else if (ft_isdigit(str[(*i)]))
+		return (ft_spaces(str, i, lst));
+	return (-1);
 }

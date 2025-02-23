@@ -6,7 +6,7 @@
 /*   By: asajed <asajed@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 22:45:02 by asajed            #+#    #+#             */
-/*   Updated: 2024/11/28 22:27:25 by asajed           ###   ########.fr       */
+/*   Updated: 2024/12/01 14:32:12 by asajed           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	check_argprint(char c, va_list lst, const char *str, int *i)
 	else if (c == 'd' || c == 'i')
 		return ((ft_putnbr(va_arg(lst, int))));
 	else if (c == 'u')
-		return ((ft_unsign(va_arg(lst, size_t))));
+		return ((ft_unsign(va_arg(lst, unsigned int))));
 	else if (c == 's')
 		return ((ft_putstr(va_arg(lst, char *))));
 	else if (c == '%')

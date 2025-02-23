@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_handlestr.c                                     :+:      :+:    :+:   */
+/*   ft_positive.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asajed <asajed@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/28 02:17:16 by asajed            #+#    #+#             */
-/*   Updated: 2024/11/28 20:59:47 by asajed           ###   ########.fr       */
+/*   Created: 2024/11/29 23:20:32 by asajed            #+#    #+#             */
+/*   Updated: 2024/12/01 14:33:01 by asajed           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int	ft_handlestr(va_list lst, int len)
+int	ft_positive(const char *str, char c, int num)
 {
-	char	*str;
-	int		count;
+	int	count;
+	int	i;
 
-	str = va_arg(lst, char *);
-	count = ft_strlen(str);
-	if (count >= len)
-		return (write(1, str, len));
-	ft_putstr(str);
+	count = 0;
+	i = 0;
+	if (num >= 0 && c == '0')
+	{
+		while ((str[i] != 'd' || str[i] != 'i') && str[i])
+		{
+			if (str[i] != 'd' || str[i] != 'i')
+				break ;
+			if (str[i] == '+' || str[i] == ' ')
+				count++;
+			i++;
+		}
+	}
 	return (count);
 }
